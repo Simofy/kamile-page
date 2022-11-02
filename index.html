@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>KamilĖ</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+
+<body>
+    <div class="image"></div>
+    <div class="container">
+        <div class="divider"></div>
+        <div class="plane"></div>
+        <div class="time">
+            <span>Kamilė lietuvoje bus už:</span>
+            <span id="time"></span>
+        </div>
+    </div>
+    <script>
+        const time = document.getElementById('time');
+        const finalDate = (new Date(2022, 10, 03, 11)).getTime();
+        function setTime() {
+            const date = (new Date()).getTime();
+            let timeInMs = finalDate - date;
+            if (timeInMs < 0) {
+                time.innerText = 'Jau blet lietuvoj!';
+            } else {
+                const hours = Math.floor(timeInMs / 3.6e+6);
+                timeInMs -= hours * 3.6e+6;
+                const minutes = Math.floor(timeInMs / 60000);
+                timeInMs -= minutes * 60000;
+                const seconds = Math.floor(timeInMs / 1000);
+                time.innerText = `${hours}h ${minutes}min ir ${seconds}s`;
+                requestAnimationFrame(setTime);
+            }
+        }
+        setTime();
+    </script>
+</body>
+
+</html>
